@@ -21,11 +21,17 @@ export class BuscarComponent implements OnInit {
   }
 
   buscando(){
-    this.heroesService.getSugerencias( this.termino )
+    this.heroesService.getSugerencias( this.termino.trim() )
     .subscribe( heroes => this.heroes = heroes );
   }
 
   opcionSeleccionada( event: MatAutocompleteSelectedEvent  ){
+
+    if(!event.option.value){
+      this.heroeSeleccionado = undefined!;
+      return;
+    }
+
     const heroe = event.option.value;
     this.termino = heroe.superhero;
 
